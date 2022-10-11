@@ -1,0 +1,95 @@
+﻿@page "/EditItem/{Id}"
+
+@using InventoryManagementSystem.Data
+@inject InventoryService inventoryService
+@inject CategoriesService categoriesService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+<hr />
+@if(CatObj != null && CatObj.Count > 0)
+{
+ <h2>Edit Item</h2>
+  <form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.Name" />
+            </div>
+             <div class="form-group">
+                <label for="Name" class="control-label">Description</label>
+                <input form="Name" class="form-control" @bind="@obj.Description" />
+            </div>
+            <div class="form-group">
+                <label for="Gender" class="control-label"></label>
+                <select @bind="@obj.Category" class="form-control">
+                    <option value="">-Select Category</option>
+                        @foreach(var inv in CatObj)
+                        {
+                        <option value="@inv.Name">@inv.Name</option>
+                        }
+                </select>
+               
+            </div>
+            
+            <div class="form-group">
+                <label for="City" class="control-label">Price</label>
+                <input form="City" class="form-control" @bind="@obj.Price" />
+            </div>
+             <div class="form-group">
+                <label for="City" class="control-label">Number of Items</label>
+                <input form="City" class="form-control" @bind="@obj.StockItem" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateItem" value="Save"/>
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel"/>
+            </div>
+        </div>
+    </div>
+</form>  
+}
+else
+{
+      <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label  class="control-label text-danger">Please, Add Category</label>
+                <NavLink class="nav-link" href="AddCategory">
+                    <span class="oi oi-plus" aria-hidden="true">Add Category</span>
+
+                 </NavLink>
+            </div>
+
+         </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    Item obj = new Item();
+    List<InventoryManagementSystem.Data.Category> CatObj;
+    protected override async Task OnInitializedAsync()
+    {
+      CatObj = await Task.Run(() => categoriesService.GetAllCategoryAsync());
+      obj = await Task.Run(() => inventoryService.GetItemAsync(Convert.ToInt32(Id)));
+    }
+  
+    protected async void UpdateItem()
+    {
+        await inventoryService.UpdateItemAsync(obj);
+        NavigationManager.NavigateTo("Items");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Items");
+    }
+}

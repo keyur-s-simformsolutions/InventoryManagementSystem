@@ -1,0 +1,47 @@
+﻿@page "/EditCategory/{Id}"
+@using InventoryManagementSystem.Data
+@inject CategoriesService categoriesService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+<h2>Edit Category</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.Name" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateCategory" value="Save"/>
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    Category obj = new Category();
+    [Parameter]
+    public string Id { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        obj = await Task.Run(() => categoriesService.GetCategoryAsync(Convert.ToInt32(Id)));
+    }
+    protected async void UpdateCategory()
+    {
+        await categoriesService.UpdateCategoryAsync(obj);
+        NavigationManager.NavigateTo("Categorieslist");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Categorieslist");
+    }
+}

@@ -1,0 +1,97 @@
+﻿@page "/Items"
+@using Microsoft.AspNetCore.Identity
+@using InventoryManagementSystem.Data
+@attribute [Authorize]
+
+@inject InventoryService inventoryService
+
+<NavLink class="nav-link" href="AddItem">
+    <span class="oi oi-plus" aria-hidden="true">Add Item</span>
+
+</NavLink>
+
+<h1>Inventory Info</h1>
+ <div class="input-group col">
+        <input type="text" class="form-control" placeholder="Search user by Item name"
+               @bind="SearchString" @bind:event="oninput" @onkeyup="FilterItem" />
+               @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }
+</div>
+@if (InvObj is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th> Name</th>
+                    <th> Category </th>
+                    <th> Description</th>
+                    <th>Price</th>
+                    <th>Number of Items</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        <tbody>
+            @foreach(var inv in InvObj)
+                {
+            <tr>
+                <td>@inv.Id</td>
+                <td>@inv.Name</td>
+                <td>@inv.Category</td>
+                <td>@inv.Description</td>
+                <td>@inv.Price</td>
+                <td>@inv.StockItem</td>
+                <td>
+                    <a class="nav-link" href="EditItem/@inv.Id">
+                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                    </a>
+                    <a class="nav-link" href="DeleteItem/@inv.Id">
+                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                    </a>
+                </td>
+            </tr>
+                }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    List<Item> InvObj;
+    protected string SearchString { get; set; } = string.Empty;
+     protected List<Item> searchUserData = new();
+    protected override async Task OnInitializedAsync()
+    {
+        InvObj = await Task.Run(() => inventoryService.GetAllInventoryAsync());
+        searchUserData = InvObj;
+    }
+   
+    protected void FilterItem()
+    {
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            InvObj = searchUserData
+                .Where(x => x.Name.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1)
+                .ToList();
+        }
+        else
+        {
+            InvObj = searchUserData;
+        }
+    }
+    public void ResetSearch()
+    {
+        SearchString = string.Empty;
+        InvObj = searchUserData;
+    }
+}

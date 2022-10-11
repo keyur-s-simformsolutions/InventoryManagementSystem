@@ -1,0 +1,60 @@
+﻿@page "/Categorieslist"
+@using Microsoft.AspNetCore.Identity
+@using InventoryManagementSystem.Data
+@attribute [Authorize]
+@inject CategoriesService categoriesService
+
+<NavLink class="nav-link" href="AddCategory">
+    <span class="oi oi-plus" aria-hidden="true">Add Category</span>
+
+</NavLink>
+
+<h1>Category Info</h1>
+
+@if (CatObj is null)
+{
+    <p><em>Loading... !</em></p>
+}
+else
+{
+    <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th> Name</th>
+
+                    <th>Action</th>
+                </tr>
+            </thead>
+        <tbody>
+            @foreach(var inv in CatObj)
+                {
+            <tr>
+                <td>@inv.Id</td>
+                <td>@inv.Name</td>
+               
+                <td>
+                    <a class="nav-link" href="EditCategory/@inv.Id">
+                        <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                    </a>
+                    <a class="nav-link" href="DeleteCategory/@inv.Id">
+                        <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                    </a>
+                </td>
+            </tr>
+                }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    List<Category> CatObj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CatObj = await Task.Run(() => categoriesService.GetAllCategoryAsync());
+   
+    }
+  
+}
