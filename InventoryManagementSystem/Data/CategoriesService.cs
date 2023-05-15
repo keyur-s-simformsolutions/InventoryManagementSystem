@@ -1,54 +1,92 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace InventoryManagementSystem.Data
 {
     public class CategoriesService
     {
-
         private readonly ApplicationDbContext _appDBContext;
+        private readonly ILogger<CategoriesService> _logger;
 
-
-
-        public CategoriesService(ApplicationDbContext appDBContext)
+        public CategoriesService(ApplicationDbContext appDBContext, ILogger<CategoriesService> logger)
         {
             _appDBContext = appDBContext;
+            _logger = logger;
         }
+
         public async Task<List<Category>> GetAllCategoryAsync()
         {
-            return await _appDBContext.Category.ToListAsync();
+            try
+            {
+                return await _appDBContext.Category.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all categories.");
+                throw;
+            }
         }
-        #region Insert Category
+
         public async Task<bool> InsertCategoryAsync(Category category)
         {
-            await _appDBContext.Category.AddAsync(category);
-            await _appDBContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                await _appDBContext.Category.AddAsync(category);
+                await _appDBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while inserting a category.");
+                throw;
+            }
         }
-        #endregion
-        #region Get Category by Id
+
         public async Task<Category> GetCategoryAsync(int Id)
         {
-            Category category = await _appDBContext.Category.FirstOrDefaultAsync(c => c.Id.Equals(Id));
-            return category;
+            try
+            {
+                Category category = await _appDBContext.Category.FirstOrDefaultAsync(c => c.Id.Equals(Id));
+                return category;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting a category by Id.");
+                throw;
+            }
         }
-        #endregion
 
-        #region Update Category
         public async Task<bool> UpdateCategoryAsync(Category category)
         {
-            _appDBContext.Category.Update(category);
-            await _appDBContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                _appDBContext.Category.Update(category);
+                await _appDBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating a category.");
+                throw;
+            }
         }
-        #endregion
 
-        #region Category Item
         public async Task<bool> DeleteCategoryAsync(Category category)
         {
-            _appDBContext.Remove(category);
-            await _appDBContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                _appDBContext.Remove(category);
+                await _appDBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting a category.");
+                throw;
+            }
         }
-        #endregion
     }
 }

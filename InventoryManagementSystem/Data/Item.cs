@@ -13,5 +13,11 @@ namespace InventoryManagementSystem.Data
         public Decimal Price { get; set; }
         public int StockItem { get; set; }
         public DateTime DateofAddingItem { get; set; }
+        public Item()
+        {
+            DateofAddingItem = DateTime.Now.Date;
+        }
+
     }
+
 }

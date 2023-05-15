@@ -7,6 +7,9 @@ C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.RazorAssemblyInfo.cache
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.RazorAssemblyInfo.cs
+C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.dll
+C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\refint\InventoryManagementSystem.dll
+C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.pdb
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\bin\Debug\net6.0\appsettings.json
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\bin\Debug\net6.0\InventoryManagementSystem.staticwebassets.runtime.json
@@ -64,8 +67,5 @@ C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\scopedcss\bundle\InventoryManagementSystem.styles.css
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\scopedcss\projectbundle\InventoryManagementSystem.bundle.scp.css
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.csproj.CopyComplete
-C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.dll
-C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\refint\InventoryManagementSystem.dll
-C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.pdb
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\InventoryManagementSystem.genruntimeconfig.cache
 C:\Users\keyur\source\repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\net6.0\ref\InventoryManagementSystem.dll

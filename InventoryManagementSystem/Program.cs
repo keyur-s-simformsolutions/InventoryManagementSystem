@@ -22,7 +22,11 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<InventoryService>();
 builder.Services.AddScoped<CategoriesService>();
-
+builder.Services.AddScoped<ReportService>();
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole(); // Configure console logging
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
